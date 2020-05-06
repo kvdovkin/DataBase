@@ -1,54 +1,54 @@
---Вариант 2.
+п»ї--Р’Р°СЂРёР°РЅС‚ 2.
 --1. INSERT
-	--1. Без указания списка полей
-	INSERT INTO specialty VALUES (6, 'Баранина', 'Приготовление баранины', null, null);
-	--2. С указанием списка полей
-	INSERT INTO specialty (Id_specialty, name, kind_activity) VALUES (7, 'Хлеб', 'Приготовление булок');
-	--3. С чтением значения из другой таблицы
-	INSERT INTO specialty VALUES ((SELECT Id_dish FROM dish WHERE name = 'молоко'), 'Молочка', 'Приготовление молочной продукции', NULL, NULL);
+	--1. Р‘РµР· СѓРєР°Р·Р°РЅРёСЏ СЃРїРёСЃРєР° РїРѕР»РµР№
+	INSERT INTO specialty VALUES (6, 'Р‘Р°СЂР°РЅРёРЅР°', 'РџСЂРёРіРѕС‚РѕРІР»РµРЅРёРµ Р±Р°СЂР°РЅРёРЅС‹', null, null);
+	--2. РЎ СѓРєР°Р·Р°РЅРёРµРј СЃРїРёСЃРєР° РїРѕР»РµР№
+	INSERT INTO specialty (Id_specialty, name, kind_activity) VALUES (7, 'РҐР»РµР±', 'РџСЂРёРіРѕС‚РѕРІР»РµРЅРёРµ Р±СѓР»РѕРє');
+	--3. РЎ С‡С‚РµРЅРёРµРј Р·РЅР°С‡РµРЅРёСЏ РёР· РґСЂСѓРіРѕР№ С‚Р°Р±Р»РёС†С‹
+	INSERT INTO specialty VALUES ((SELECT Id_dish FROM dish WHERE name = 'РјРѕР»РѕРєРѕ'), 'РњРѕР»РѕС‡РєР°', 'РџСЂРёРіРѕС‚РѕРІР»РµРЅРёРµ РјРѕР»РѕС‡РЅРѕР№ РїСЂРѕРґСѓРєС†РёРё', NULL, NULL);
 
 --2. DELETE
-	--1. Всех записей
+	--1. Р’СЃРµС… Р·Р°РїРёСЃРµР№
 	DELETE FROM dish;
-	--2. По условию
-		DELETE FROM dish WHERE name = 'вареники';
-	--3. Очистить таблицу
+	--2. РџРѕ СѓСЃР»РѕРІРёСЋ
+		DELETE FROM dish WHERE name = 'РІР°СЂРµРЅРёРєРё';
+	--3. РћС‡РёСЃС‚РёС‚СЊ С‚Р°Р±Р»РёС†Сѓ
 		TRUNCATE TABLE dish;
 
 --3. UPDATE
-	--1. Всех записей
+	--1. Р’СЃРµС… Р·Р°РїРёСЃРµР№
 		 UPDATE dish SET price = 10;
-	--2. По условию обновляя один атрибут
-		UPDATE dish SET price = 20 WHERE name = 'масло';
-	--3. По условию обновляя несколько атрибутов
-		UPDATE dish SET price = 25, Id_dish = 15, Id_recipe = 15 WHERE name = 'молоко';
+	--2. РџРѕ СѓСЃР»РѕРІРёСЋ РѕР±РЅРѕРІР»СЏСЏ РѕРґРёРЅ Р°С‚СЂРёР±СѓС‚
+		UPDATE dish SET price = 20 WHERE name = 'РјР°СЃР»Рѕ';
+	--3. РџРѕ СѓСЃР»РѕРІРёСЋ РѕР±РЅРѕРІР»СЏСЏ РЅРµСЃРєРѕР»СЊРєРѕ Р°С‚СЂРёР±СѓС‚РѕРІ
+		UPDATE dish SET price = 25, Id_dish = 15, Id_recipe = 15 WHERE name = 'РјРѕР»РѕРєРѕ';
 
 --4. SELECT
-	--1. С определенным набором извлекаемых атрибутов (SELECT atr1, atr2 FROM...)
+	--1. РЎ РѕРїСЂРµРґРµР»РµРЅРЅС‹Рј РЅР°Р±РѕСЂРѕРј РёР·РІР»РµРєР°РµРјС‹С… Р°С‚СЂРёР±СѓС‚РѕРІ (SELECT atr1, atr2 FROM...)
 		SELECT name, experience FROM cook;
-	--2. Со всеми атрибутами (SELECT * FROM...)
+	--2. РЎРѕ РІСЃРµРјРё Р°С‚СЂРёР±СѓС‚Р°РјРё (SELECT * FROM...)
 		SELECT * FROM cook;
-	--3. С условием по атрибуту (SELECT * FROM ... WHERE atr1 = "")
-		SELECT * FROM cook WHERE name ='Петров Петр';
+	--3. РЎ СѓСЃР»РѕРІРёРµРј РїРѕ Р°С‚СЂРёР±СѓС‚Сѓ (SELECT * FROM ... WHERE atr1 = "")
+		SELECT * FROM cook WHERE name ='РџРµС‚СЂРѕРІ РџРµС‚СЂ';
 
 --5. SELECT ORDER BY + TOP (LIMIT)
-    --1. С сортировкой по возрастанию ASC + ограничение вывода количества записей
+    --1. РЎ СЃРѕСЂС‚РёСЂРѕРІРєРѕР№ РїРѕ РІРѕР·СЂР°СЃС‚Р°РЅРёСЋ ASC + РѕРіСЂР°РЅРёС‡РµРЅРёРµ РІС‹РІРѕРґР° РєРѕР»РёС‡РµСЃС‚РІР° Р·Р°РїРёСЃРµР№
 		SELECT TOP 3 * FROM cook ORDER BY Id_cook ASC;
-    --2. С сортировкой по убыванию DESC
+    --2. РЎ СЃРѕСЂС‚РёСЂРѕРІРєРѕР№ РїРѕ СѓР±С‹РІР°РЅРёСЋ DESC
 		SELECT * FROM cook ORDER BY name DESC;
-    --3. С сортировкой по двум атрибутам + ограничение вывода количества записей
+    --3. РЎ СЃРѕСЂС‚РёСЂРѕРІРєРѕР№ РїРѕ РґРІСѓРј Р°С‚СЂРёР±СѓС‚Р°Рј + РѕРіСЂР°РЅРёС‡РµРЅРёРµ РІС‹РІРѕРґР° РєРѕР»РёС‡РµСЃС‚РІР° Р·Р°РїРёСЃРµР№
 		SELECT TOP 2 * FROM cook ORDER BY data_birth, experience ASC;
-    --4. С сортировкой по первому атрибуту, из списка извлекаемых
+    --4. РЎ СЃРѕСЂС‚РёСЂРѕРІРєРѕР№ РїРѕ РїРµСЂРІРѕРјСѓ Р°С‚СЂРёР±СѓС‚Сѓ, РёР· СЃРїРёСЃРєР° РёР·РІР»РµРєР°РµРјС‹С…
 		SELECT * FROM cook ORDER BY data_birth, experience, Id_cook ASC;
 
---6. Работа с датами. Необходимо, чтобы одна из таблиц содержала атрибут с типом DATETIME.
-    --Например, таблица авторов может содержать дату рождения автора.
-    --1. WHERE по дате
+--6. Р Р°Р±РѕС‚Р° СЃ РґР°С‚Р°РјРё. РќРµРѕР±С…РѕРґРёРјРѕ, С‡С‚РѕР±С‹ РѕРґРЅР° РёР· С‚Р°Р±Р»РёС† СЃРѕРґРµСЂР¶Р°Р»Р° Р°С‚СЂРёР±СѓС‚ СЃ С‚РёРїРѕРј DATETIME.
+    --РќР°РїСЂРёРјРµСЂ, С‚Р°Р±Р»РёС†Р° Р°РІС‚РѕСЂРѕРІ РјРѕР¶РµС‚ СЃРѕРґРµСЂР¶Р°С‚СЊ РґР°С‚Сѓ СЂРѕР¶РґРµРЅРёСЏ Р°РІС‚РѕСЂР°.
+    --1. WHERE РїРѕ РґР°С‚Рµ
 		SELECT * FROM cook WHERE YEAR(data_birth) > 1980;
-    --2. Извлечь из таблицы не всю дату, а только год. Например, год рождения автора.
+    --2. РР·РІР»РµС‡СЊ РёР· С‚Р°Р±Р»РёС†С‹ РЅРµ РІСЃСЋ РґР°С‚Сѓ, Р° С‚РѕР»СЊРєРѕ РіРѕРґ. РќР°РїСЂРёРјРµСЂ, РіРѕРґ СЂРѕР¶РґРµРЅРёСЏ Р°РІС‚РѕСЂР°.
 		SELECT YEAR(data_birth), name FROM cook;
 
---7. SELECT GROUP BY с функциями агрегации
+--7. SELECT GROUP BY СЃ С„СѓРЅРєС†РёСЏРјРё Р°РіСЂРµРіР°С†РёРё
     --1. MIN
 	SELECT MIN(price) FROM dish;
     --2. MAX
@@ -61,7 +61,7 @@
 	SELECT COUNT(price) FROM dish;
 
 --8. SELECT GROUP BY + HAVING
-    --1. Написать 3 разных запроса с использованием GROUP BY + HAVING
+    --1. РќР°РїРёСЃР°С‚СЊ 3 СЂР°Р·РЅС‹С… Р·Р°РїСЂРѕСЃР° СЃ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµРј GROUP BY + HAVING
 	SELECT YEAR(data_birth), COUNT(*) AS YearsCount
 	FROM cook
 	GROUP BY YEAR(data_birth)
@@ -78,31 +78,31 @@
 	HAVING price <= 20;
 
 --9. SELECT JOIN
-    --1. LEFT JOIN двух таблиц и WHERE по одному из атрибутов
+    --1. LEFT JOIN РґРІСѓС… С‚Р°Р±Р»РёС† Рё WHERE РїРѕ РѕРґРЅРѕРјСѓ РёР· Р°С‚СЂРёР±СѓС‚РѕРІ
 	SELECT *
 	FROM dish
 	LEFT JOIN supplier ON dish.name = supplier.name;
-    --2. RIGHT JOIN. Получить такую же выборку, как и в 5.1
+    --2. RIGHT JOIN. РџРѕР»СѓС‡РёС‚СЊ С‚Р°РєСѓСЋ Р¶Рµ РІС‹Р±РѕСЂРєСѓ, РєР°Рє Рё РІ 5.1
 	SELECT *
 	FROM dish
 	RIGHT JOIN supplier ON dish.name = supplier.name;
-    --3. LEFT JOIN трех таблиц + WHERE по атрибуту из каждой таблицы
+    --3. LEFT JOIN С‚СЂРµС… С‚Р°Р±Р»РёС† + WHERE РїРѕ Р°С‚СЂРёР±СѓС‚Сѓ РёР· РєР°Р¶РґРѕР№ С‚Р°Р±Р»РёС†С‹
 	SELECT *
 	FROM dish
 	LEFT JOIN supplier ON dish.Id_dish = supplier.Id_supplier
 	LEFT JOIN cook ON dish.Id_dish = cook.Id_cook
 	WHERE profit > 300 OR YEAR(data_birth) > 1980 OR price >= 20;
-    --4. FULL OUTER JOIN двух таблиц
+    --4. FULL OUTER JOIN РґРІСѓС… С‚Р°Р±Р»РёС†
 	SELECT *
 	FROM dish
 	FULL OUTER JOIN supplier ON dish.name = supplier.name;
 
---10. Подзапросы
-    --1. Написать запрос с WHERE IN (подзапрос)
+--10. РџРѕРґР·Р°РїСЂРѕСЃС‹
+    --1. РќР°РїРёСЃР°С‚СЊ Р·Р°РїСЂРѕСЃ СЃ WHERE IN (РїРѕРґР·Р°РїСЂРѕСЃ)
 	SELECT * FROM dish
 	WHERE dish.name IN(
 		SELECT supplier.name FROM supplier
 	);
-    --2. Написать запрос SELECT atr1, atr2, (подзапрос) FROM ...  
+    --2. РќР°РїРёСЃР°С‚СЊ Р·Р°РїСЂРѕСЃ SELECT atr1, atr2, (РїРѕРґР·Р°РїСЂРѕСЃ) FROM ...  
 	SELECT name, (SELECT Id_cook FROM cook WHERE experience >= 40) AS OldCookId 
 	FROM cook;

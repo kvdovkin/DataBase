@@ -104,5 +104,6 @@
 		SELECT supplier.name FROM supplier
 	);
     --2. Написать запрос SELECT atr1, atr2, (подзапрос) FROM ...  
-	SELECT name, (SELECT Id_cook FROM cook WHERE experience >= 40) AS OldCookId 
-	FROM cook;
+	SELECT (SELECT Id_cook FROM cook WHERE experience >= 40) AS OldCookId, name
+	FROM cook
+	WHERE experience >= 40;

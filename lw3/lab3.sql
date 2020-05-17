@@ -50,15 +50,20 @@
 
 --7. SELECT GROUP BY с функциями агрегации
     --1. MIN
-	SELECT MIN(price) FROM dish;
+	SELECT name, MIN(price) FROM dish
+	GROUP BY name;
     --2. MAX
-	SELECT MAX(price) FROM dish;
+	SELECT name, MAX(price) FROM dish
+	GROUP BY name;
     --3. AVG
-	SELECT AVG(price) FROM dish;
+	SELECT name, AVG(price) FROM dish
+	GROUP BY name;
     --4. SUM
-	SELECT SUM(price) FROM dish;
+	SELECT name, SUM(price) FROM dish
+	GROUP BY name;
     --5. COUNT
-	SELECT COUNT(price) FROM dish;
+	SELECT name, COUNT(price) FROM dish
+	GROUP BY name;
 
 --8. SELECT GROUP BY + HAVING
     --1. Написать 3 разных запроса с использованием GROUP BY + HAVING

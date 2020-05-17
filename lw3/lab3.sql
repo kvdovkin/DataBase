@@ -72,15 +72,15 @@
 	GROUP BY YEAR(data_birth)
 	HAVING COUNT(*) > 1;
 
-	SELECT YEAR(data_birth)
+	SELECT YEAR(data_birth), COUNT(*) AS HowCook
 	FROM cook
 	GROUP BY YEAR(data_birth)
-	HAVING YEAR(data_birth) > 1980;
+	HAVING COUNT(YEAR(data_birth)) > 1;
 
-	SELECT price
-	FROM dish
-	GROUP BY price
-	HAVING price <= 20;
+	SELECT COUNT(*) AS ManyProduct
+	FROM Product_In_Recipe
+	GROUP BY Id_recipe
+	HAVING COUNT(Id_recipe) > 1;
 
 --9. SELECT JOIN
     --1. LEFT JOIN двух таблиц и WHERE по одному из атрибутов

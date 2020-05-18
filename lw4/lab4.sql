@@ -116,60 +116,17 @@ COMMIT;
 
 --9. Добавить необходимые индексы для всех таблиц.
 
-CREATE NONCLUSTERED INDEX [IX_hotel_id_hotel-name] ON hotel
-(
-	id_hotel ASC,
-	name ASC
-)
+-- booking
+CREATE NONCLUSTERED INDEX [IX_booking_id_client] ON booking (id_client) -- для join в п. 2
 
-CREATE NONCLUSTERED INDEX [IX_hotel_name] ON hotel
-(
-	name ASC
-)
+CREATE NONCLUSTERED INDEX [IX_room_in_booking_id_booking] ON room_in_booking (id_booking) -- для join
+CREATE NONCLUSTERED INDEX [IX_room_in_booking_id_room] ON room_in_booking (id_room) -- для join
+CREATE NONCLUSTERED INDEX [IX_room_in_booking_checkout_date] ON room_in_booking (checkout_date) -- для MAX в п.5
 
-CREATE NONCLUSTERED INDEX [IX_room_category_id_room_category-name] ON room_category
-(
-	id_room_category ASC,
-	name ASC
-)
+CREATE NONCLUSTERED INDEX [IX_room_id_hotel] ON room (id_hotel) -- для join в п. 2
+CREATE NONCLUSTERED INDEX [IX_room_id_room_category] ON room (id_room_category) -- для join в п. 2
 
-CREATE NONCLUSTERED INDEX [IX_room_category_name] ON room_category
-(
-	name ASC
-)
+CREATE NONCLUSTERED INDEX [IX_hotel_name] ON hotel (name) -- для быстрого поиска по имени в п. 2
 
-CREATE NONCLUSTERED INDEX [IX_room_id_hotel] ON room
-(
-	id_hotel ASC
-)
-
-CREATE NONCLUSTERED INDEX [IX_room_id_room_category] ON room
-(
-	id_room_category ASC
-)
-
-CREATE NONCLUSTERED INDEX [IX_booking_id_client] ON booking
-(
-	id_client ASC
-)
-
-CREATE NONCLUSTERED INDEX [IX_room_in_booking_id_room] ON room_in_booking
-(
-	id_room ASC
-)
-
-CREATE NONCLUSTERED INDEX [IX_room_in_booking_id_booking] ON room_in_booking
-(
-	id_booking ASC
-)
-
-CREATE NONCLUSTERED INDEX [IX_room_in_booking_checkin_date-checkout_date] ON room_in_booking
-(
-	checkin_date ASC,
-	checkout_date ASC
-)
-
-CREATE NONCLUSTERED INDEX [IX_room_in_booking_checkout_date] ON room_in_booking
-(
-	checkout_date ASC
-)
+CREATE NONCLUSTERED INDEX [IX_room_category_name] ON room_category (name) -- для быстрого поиска по имени в 2 и 6 п.
+CREATE NONCLUSTERED INDEX [IX_room_category_id_room_category-name] ON room_category (id_room_category, name) -- для запроса GROUP BY в 4 пункте

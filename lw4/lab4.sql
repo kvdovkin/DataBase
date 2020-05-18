@@ -99,23 +99,20 @@ WHERE
 	and room_in_booking.checkin_date = DATEFROMPARTS ( 2019, 05, 10 );
 
 --7. Найти все "пересекающиеся" варианты проживания. <...>
-SELECT *
-FROM room_in_booking booked1
-INNER JOIN room_in_booking AS booked2 ON booked1.id_room = booked2.id_room
-WHERE (
-	(booked1.id_room_in_booking != booked2.id_room_in_booking)
-	and
-	((booked1.checkin_date >= booked2.checkin_date and booked1.checkin_date < booked2.checkout_date) 
-	or 
-	(booked2.checkin_date >= booked1.checkin_date and booked2.checkin_date < booked1.checkout_date)) 
-)
-ORDER BY booked1.id_room_in_booking;
+
+SELECT * FROM room_in_booking booked1, room_in_booking booked2
+WHERE booked1.id_room_in_booking != booked2.id_room_in_booking 
+	AND booked1.id_room = booked2.id_room 
+	AND booked1.checkin_date <= booked2.checkin_date 
+	AND booked1.checkout_date > booked2.checkin_date 
+ORDER BY booked1.id_room;
 
 --8. Создать бронирование в транзакции.
-BEGIN TRANSACTION;  
-	INSERT INTO booking 
-	VALUES(1, DATEFROMPARTS ( 2020, 04, 5 ));  
-COMMIT;  
+BEGIN TRANSACTION
+	INSERT INTO client VALUES ('Иванов Иван', '7(927)-123-45-67')
+	INSERT INTO booking VALUES (SCOPE_IDENTITY(), '2020-05-18')
+	INSERT INTO room_in_booking VALUES(SCOPE_IDENTITY(), 33, '2020-05-19', '2020-06-10')
+COMMIT; 
 
 --9. Добавить необходимые индексы для всех таблиц.
 

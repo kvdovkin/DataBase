@@ -116,7 +116,6 @@ COMMIT;
 
 --9. Добавить необходимые индексы для всех таблиц.
 
--- booking
 CREATE NONCLUSTERED INDEX [IX_booking_id_client] ON booking (id_client) -- для join в п. 2
 
 CREATE NONCLUSTERED INDEX [IX_room_in_booking_id_booking] ON room_in_booking (id_booking) -- для join

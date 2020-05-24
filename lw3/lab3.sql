@@ -77,10 +77,10 @@
 	GROUP BY YEAR(data_birth)
 	HAVING COUNT(YEAR(data_birth)) > 1;
 
-	SELECT COUNT(*) AS ManyProduct
-	FROM Product_In_Recipe
-	GROUP BY Id_recipe
-	HAVING COUNT(Id_recipe) > 1;
+	SELECT name, AVG(price) AS AvgPrice
+	FROM dish
+	GROUP BY name
+	HAVING AVG(price) > 5
 
 --9. SELECT JOIN
     --1. LEFT JOIN двух таблиц и WHERE по одному из атрибутов

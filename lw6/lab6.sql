@@ -1,4 +1,4 @@
--- 1. Добавить внешние ключи
+-- 1. Р”РѕР±Р°РІРёС‚СЊ РІРЅРµС€РЅРёРµ РєР»СЋС‡Рё
 alter table student
 	add constraint student_group_id_group_fk
 		foreign key (id_group) references "group";
@@ -23,8 +23,8 @@ alter table mark
 	add constraint mark_student_id_student_fk
 		foreign key (id_student) references student;
 
---2. Выдать оценки студентов по информатике если они обучаются данному предмету. 
---   Оформить выдачу данных с использованием view.
+--2. Р’С‹РґР°С‚СЊ РѕС†РµРЅРєРё СЃС‚СѓРґРµРЅС‚РѕРІ РїРѕ РёРЅС„РѕСЂРјР°С‚РёРєРµ РµСЃР»Рё РѕРЅРё РѕР±СѓС‡Р°СЋС‚СЃСЏ РґР°РЅРЅРѕРјСѓ РїСЂРµРґРјРµС‚Сѓ. 
+--   РћС„РѕСЂРјРёС‚СЊ РІС‹РґР°С‡Сѓ РґР°РЅРЅС‹С… СЃ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµРј view.
 
 CREATE VIEW study_computer_science AS
 SELECT student.name, mark.mark
@@ -32,12 +32,12 @@ FROM mark
 	LEFT JOIN student ON mark.id_student = student.id_student
 	LEFT JOIN lesson ON mark.id_lesson = lesson.id_lesson
 	LEFT JOIN subject on lesson.id_subject = subject.id_subject
-WHERE subject.name = 'Информатика';
+WHERE subject.name = 'РРЅС„РѕСЂРјР°С‚РёРєР°';
 
--- 3. Дать информацию о должниках с указанием фамилии студента и названия
---   предмета. Должниками считаются студенты, не имеющие оценки по предмету,
---   который ведется в группе. Оформить в виде процедуры, на входе
---   идентификатор группы.
+-- 3. Р”Р°С‚СЊ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ РґРѕР»Р¶РЅРёРєР°С… СЃ СѓРєР°Р·Р°РЅРёРµРј С„Р°РјРёР»РёРё СЃС‚СѓРґРµРЅС‚Р° Рё РЅР°Р·РІР°РЅРёСЏ
+--   РїСЂРµРґРјРµС‚Р°. Р”РѕР»Р¶РЅРёРєР°РјРё СЃС‡РёС‚Р°СЋС‚СЃСЏ СЃС‚СѓРґРµРЅС‚С‹, РЅРµ РёРјРµСЋС‰РёРµ РѕС†РµРЅРєРё РїРѕ РїСЂРµРґРјРµС‚Сѓ,
+--   РєРѕС‚РѕСЂС‹Р№ РІРµРґРµС‚СЃСЏ РІ РіСЂСѓРїРїРµ. РћС„РѕСЂРјРёС‚СЊ РІ РІРёРґРµ РїСЂРѕС†РµРґСѓСЂС‹, РЅР° РІС…РѕРґРµ
+--   РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ РіСЂСѓРїРїС‹.
 
 CREATE OR REPLACE FUNCTION debtor_info(identifier varchar)
     RETURNS TABLE
@@ -63,16 +63,16 @@ $$;
 
 
 SELECT *
-FROM debtor_info('ПС');
+FROM debtor_info('РџРЎ');
 SELECT *
-FROM debtor_info('ИВТ');
+FROM debtor_info('РР’Рў');
 SELECT *
-FROM debtor_info('ВМ');
+FROM debtor_info('Р’Рњ');
 SELECT *
-FROM debtor_info('БИ');
+FROM debtor_info('Р‘Р');
 
--- 4. Дать среднюю оценку студентов по каждому предмету для тех предметов, по
---    которым занимается не менее 35 студентов.
+-- 4. Р”Р°С‚СЊ СЃСЂРµРґРЅСЋСЋ РѕС†РµРЅРєСѓ СЃС‚СѓРґРµРЅС‚РѕРІ РїРѕ РєР°Р¶РґРѕРјСѓ РїСЂРµРґРјРµС‚Сѓ РґР»СЏ С‚РµС… РїСЂРµРґРјРµС‚РѕРІ, РїРѕ
+--    РєРѕС‚РѕСЂС‹Рј Р·Р°РЅРёРјР°РµС‚СЃСЏ РЅРµ РјРµРЅРµРµ 35 СЃС‚СѓРґРµРЅС‚РѕРІ.
 
 SELECT subject.name, AVG(mark.mark) AS Avg_mark
 FROM mark
@@ -82,9 +82,9 @@ FROM mark
 GROUP BY subject.name
 HAVING (COUNT(DISTINCT student.id_student) >= 35)
 
--- 5. Дать оценки студентов специальности ВМ по всем проводимым предметам с
---    указанием группы, фамилии, предмета, даты. При отсутствии оценки заполнить
---    значениями NULL поля оценки.
+-- 5. Р”Р°С‚СЊ РѕС†РµРЅРєРё СЃС‚СѓРґРµРЅС‚РѕРІ СЃРїРµС†РёР°Р»СЊРЅРѕСЃС‚Рё Р’Рњ РїРѕ РІСЃРµРј РїСЂРѕРІРѕРґРёРјС‹Рј РїСЂРµРґРјРµС‚Р°Рј СЃ
+--    СѓРєР°Р·Р°РЅРёРµРј РіСЂСѓРїРїС‹, С„Р°РјРёР»РёРё, РїСЂРµРґРјРµС‚Р°, РґР°С‚С‹. РџСЂРё РѕС‚СЃСѓС‚СЃС‚РІРёРё РѕС†РµРЅРєРё Р·Р°РїРѕР»РЅРёС‚СЊ
+--    Р·РЅР°С‡РµРЅРёСЏРјРё NULL РїРѕР»СЏ РѕС†РµРЅРєРё.
 
 SELECT "group".name, student.name, subject.name, lesson.date, mark.mark
 FROM student
@@ -92,10 +92,10 @@ FROM student
          LEFT JOIN lesson ON lesson.id_group = "group".id_group
          LEFT JOIN subject ON lesson.id_subject = subject.id_subject
          LEFT JOIN mark ON (lesson.id_lesson = mark.id_lesson AND student.id_student = mark.id_student)
-WHERE "group".name = 'ВМ'
+WHERE "group".name = 'Р’Рњ'
 
--- 6. Всем студентам специальности ПС, получившим оценки меньшие 5 по предмету
--- БД до 12.05, повысить эти оценки на 1 балл.
+-- 6. Р’СЃРµРј СЃС‚СѓРґРµРЅС‚Р°Рј СЃРїРµС†РёР°Р»СЊРЅРѕСЃС‚Рё РџРЎ, РїРѕР»СѓС‡РёРІС€РёРј РѕС†РµРЅРєРё РјРµРЅСЊС€РёРµ 5 РїРѕ РїСЂРµРґРјРµС‚Сѓ
+-- Р‘Р” РґРѕ 12.05, РїРѕРІС‹СЃРёС‚СЊ СЌС‚Рё РѕС†РµРЅРєРё РЅР° 1 Р±Р°Р»Р».
 
 UPDATE mark
 SET mark = (mark + 1)
@@ -103,7 +103,7 @@ WHERE mark.id_student IN (
     SELECT student.id_student
     FROM student
              LEFT JOIN "group" ON student.id_group = "group".id_group
-    WHERE "group".name = 'ПС')
+    WHERE "group".name = 'РџРЎ')
   AND mark.id_lesson IN (
     SELECT lesson.id_lesson
     FROM lesson
@@ -112,11 +112,11 @@ WHERE mark.id_student IN (
              LEFT JOIN subject ON lesson.id_subject = subject.id_subject
              LEFT JOIN mark ON (mark.id_student = student.id_student AND mark.id_lesson = lesson.id_lesson)
     WHERE lesson.date < CAST('2019-05-12' AS date)
-      AND subject.name = 'БД'
+      AND subject.name = 'Р‘Р”'
 )
   AND mark.mark < 5
 
--- 7. Добавить необходимые индексы.
+-- 7. Р”РѕР±Р°РІРёС‚СЊ РЅРµРѕР±С…РѕРґРёРјС‹Рµ РёРЅРґРµРєСЃС‹.
 create index group_name_index
 	on "group" (name);
 
